@@ -30,7 +30,6 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
 
   public static ReactApplicationContext reactContext;
   public static IncomingCall incomingCall;
-  public static List<ReactPackage> mReactNativeHost;
 
   private static final String TAG = "RNIC:IncomingCallModule";
   private WritableMap headlessExtras;
@@ -47,12 +46,11 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
     incomingCall.processInitialEvent(intent, reactContext);
   }
 
-  public IncomingCallModule(ReactApplicationContext context, List<ReactPackage> reactNativeHost) {
+  public IncomingCallModule(ReactApplicationContext context) {
     super(context);
     reactContext = context;
     incomingCall = new IncomingCall(reactContext);
     reactContext.addActivityEventListener(this);
-    mReactNativeHost = reactNativeHost;
   }
 
   @Override

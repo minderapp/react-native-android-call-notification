@@ -36,15 +36,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
-import com.facebook.react.shell.MainReactPackage;
-import com.reactcommunity.rnlocalize.RNLocalizePackage;
-import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
-import com.reactnativenavigation.NavigationActivity;
 import com.squareup.picasso.Picasso;
-
-import io.agora.rtc.react.RCTAgoraRtcPackage;
 
 public class UnlockScreenActivity extends AppCompatActivity implements UnlockScreenActivityInterface {
 

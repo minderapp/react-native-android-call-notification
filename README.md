@@ -6,7 +6,7 @@ Yes I heard you could use **self managed ConnectionService** thing. But since I'
 
 You could also wait for [this feature request](https://github.com/react-native-webrtc/react-native-callkeep/issues/43) from `react-native-callkeep` to be resolved and have an easier life.
 
-<img width="400" src="https://github.com/bkdev98/react-native-incoming-call/raw/master/incoming-call.jpg">
+<img width="400" src="https://github.com/bkdev98/react-native-android-call-notification/raw/master/incoming-call.jpg">
 
 ## Version 2 Breaking Changes
 
@@ -30,11 +30,11 @@ Luckily I got a client project which needs this feature again and now I have tim
 
 ## Getting started
 
-`$ npm install react-native-incoming-call --save`
+`$ npm install react-native-android-call-notification --save`
 
 or
 
-`$ yarn add react-native-incoming-call`
+`$ yarn add react-native-android-call-notification`
 
 ### Addition installation step
 
@@ -48,7 +48,7 @@ In `AndroidManifest.xml`:
 
 For RN >= 0.60, it's done. Otherwise:
 
-`$ react-native link react-native-incoming-call`
+`$ react-native link react-native-android-call-notification`
 
 ## Usage
 
@@ -57,7 +57,7 @@ In `App.js`:
 ```javascript
 import {useEffect} from 'react';
 import {DeviceEventEmitter, Platform} from 'react-native';
-import IncomingCall from 'react-native-incoming-call';
+import IncomingCall from 'react-native-android-call-notification';
 
 // Listen to cancel and answer call events
 useEffect(() => {
@@ -89,7 +89,7 @@ In `index.js` or anywhere firebase background handler lies:
 ```javascript
 import messaging from '@react-native-firebase/messaging';
 import {DeviceEventEmitter} from 'react-native';
-import IncomingCall from 'react-native-incoming-call';
+import IncomingCall from 'react-native-android-call-notification';
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   // Receive remote message

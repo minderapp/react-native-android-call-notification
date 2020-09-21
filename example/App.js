@@ -1,4 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {
+  useEffect,
+  useState
+} from 'react';
 import {
   View,
   Text,
@@ -13,7 +16,7 @@ import {
 import RNBootSplash from 'react-native-bootsplash';
 import messaging from '@react-native-firebase/messaging';
 import Clipboard from '@react-native-community/clipboard';
-import IncomingCall from 'react-native-incoming-call';
+import IncomingCall from 'react-native-android-call-notification';
 import RNCallKeep from 'react-native-callkeep';
 
 const USE_CALLKEEP = false;
@@ -26,8 +29,7 @@ function setupCallKeep() {
   const options = {
     android: {
       alertTitle: 'Permissions Required',
-      alertDescription:
-        'This application needs to access your phone calling accounts to make calls',
+      alertDescription: 'This application needs to access your phone calling accounts to make calls',
       cancelButton: 'Cancel',
       okButton: 'ok',
       imageName: 'ic_launcher',
@@ -46,7 +48,7 @@ function setupCallKeep() {
 USE_CALLKEEP && setupCallKeep();
 
 export function handleRemoteMessage(remoteMessage, isHeadless) {
-  if (remoteMessage?.notification?.title === 'Incoming call') {
+  if (remoteMessage ? .notification ? .title === 'Incoming call') {
     console.log('ready...');
     const callUUID = '23727631';
     if (USE_CALLKEEP) {
@@ -58,7 +60,9 @@ export function handleRemoteMessage(remoteMessage, isHeadless) {
         'email',
         true,
       );
-      RNCallKeep.addEventListener('answerCall', ({callUUID: uuid}) => {
+      RNCallKeep.addEventListener('answerCall', ({
+        callUUID: uuid
+      }) => {
         RNCallKeep.setCurrentCallActive(uuid);
         if (isHeadless) {
           RNCallKeep.openAppFromHeadlessMode(uuid);
@@ -89,7 +93,7 @@ export function handleRemoteMessage(remoteMessage, isHeadless) {
       });
     }
     // Could also persist data here for later uses
-  } else if (remoteMessage?.notification?.title === 'Missed call') {
+  } else if (remoteMessage ? .notification ? .title === 'Missed call') {
     console.log('dismiss goes here');
     IncomingCall.dismiss();
   }
@@ -100,7 +104,9 @@ const App = () => {
   const [callPayload, setCallPayload] = useState(null);
 
   useEffect(() => {
-    RNBootSplash.hide({duration: 250});
+    RNBootSplash.hide({
+      duration: 250
+    });
 
     // Get the device token
     messaging()
@@ -193,52 +199,107 @@ const App = () => {
     setCallPayload(null);
   }
 
-  return (
-    <View style={styles.wrapper}>
-      <Text style={styles.appTitle}>RNCall</Text>
-      <Text style={styles.appDesc}>
-        example for{' '}
-        {!USE_CALLKEEP ? 'react-native-incoming-call' : 'react-native-callkeep'}
-      </Text>
-      <View style={styles.container}>
-        {callPayload ? (
-          <>
-            <Image
-              style={styles.image}
-              source={require('./images/incoming-call.jpg')}
-            />
-            <Text style={styles.header}>Incoming Call Payload</Text>
-            <Text style={styles.text}>{JSON.stringify(callPayload)}</Text>
-            <TouchableHighlight
-              onPress={handleClearPayload}
-              style={styles.button}
-              underlayColor="#C0B7FD">
-              <Text style={styles.btnLabel}>Clear</Text>
-            </TouchableHighlight>
-          </>
-        ) : deviceToken ? (
-          <>
-            <Image style={styles.image} source={require('./images/waiting-call.jpg')} />
-            <Text style={styles.header}>FCM Device Token</Text>
-            <Text style={styles.text}>{deviceToken}</Text>
-            <TouchableHighlight
-              onPress={handleCopyToken}
-              style={styles.button}
-              underlayColor="#C0B7FD">
-              <Text style={styles.btnLabel}>Copy To Clipboard</Text>
-            </TouchableHighlight>
-          </>
-        ) : (
-          <>
-            <Image
-              style={styles.image}
-              source={require('./images/no-device-token.jpg')}
-            />
-            <Text style={styles.text}>No Device Token Found!</Text>
-          </>
-        )}
-      </View>
-    </View>
+  return ( <
+    View style = {
+      styles.wrapper
+    } >
+    <
+    Text style = {
+      styles.appTitle
+    } > RNCall < /Text> <
+    Text style = {
+      styles.appDesc
+    } >
+    example
+    for {
+      ' '
+    } {
+      !USE_CALLKEEP ? 'react-native-android-call-notification' : 'react-native-callkeep'
+    } <
+    /Text> <
+    View style = {
+      styles.container
+    } > {
+      callPayload ? ( <
+        >
+        <
+        Image style = {
+          styles.image
+        }
+        source = {
+          require('./images/incoming-call.jpg')
+        }
+        /> <
+        Text style = {
+          styles.header
+        } > Incoming Call Payload < /Text> <
+        Text style = {
+          styles.text
+        } > {
+          JSON.stringify(callPayload)
+        } < /Text> <
+        TouchableHighlight onPress = {
+          handleClearPayload
+        }
+        style = {
+          styles.button
+        }
+        underlayColor = "#C0B7FD" >
+        <
+        Text style = {
+          styles.btnLabel
+        } > Clear < /Text> <
+        /TouchableHighlight> <
+        />
+      ) : deviceToken ? ( <
+        >
+        <
+        Image style = {
+          styles.image
+        }
+        source = {
+          require('./images/waiting-call.jpg')
+        }
+        /> <
+        Text style = {
+          styles.header
+        } > FCM Device Token < /Text> <
+        Text style = {
+          styles.text
+        } > {
+          deviceToken
+        } < /Text> <
+        TouchableHighlight onPress = {
+          handleCopyToken
+        }
+        style = {
+          styles.button
+        }
+        underlayColor = "#C0B7FD" >
+        <
+        Text style = {
+          styles.btnLabel
+        } > Copy To Clipboard < /Text> <
+        /TouchableHighlight> <
+        />
+      ) : ( <
+        >
+        <
+        Image style = {
+          styles.image
+        }
+        source = {
+          require('./images/no-device-token.jpg')
+        }
+        /> <
+        Text style = {
+          styles.text
+        } > No Device Token Found! < /Text> <
+        />
+      )
+    } <
+    /View> <
+    /View>
   );
 };
 

@@ -5441,9 +5441,9 @@ react-native-bootsplash@^2.2.4:
   version "3.0.13"
   resolved "git://github.com/jpudysz/react-native-callkeep#31118a0c90ca5d58824b33ed9ddb80b63e930ea7"
 
-"react-native-incoming-call@git+https://github.com/bkdev98/react-native-incoming-call.git":
+"react-native-android-call-notification@git+https://github.com/bkdev98/react-native-android-call-notification.git":
   version "2.0.1"
-  resolved "git+https://github.com/bkdev98/react-native-incoming-call.git#047223e1b9a37223dfb3ca9c63178f1466287776"
+  resolved "git+https://github.com/bkdev98/react-native-android-call-notification.git#047223e1b9a37223dfb3ca9c63178f1466287776"
 
 react-native@0.62.2:
   version "0.62.2"

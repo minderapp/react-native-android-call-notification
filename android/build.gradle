@@ -42,26 +42,17 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
 android {
-  compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
-  buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
-  defaultConfig {
-      minSdkVersion safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
-      targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
-      missingDimensionStrategy 'react-native-camera', 'general'
-      versionCode 1
-      versionName "1.0"
-  }
-  lintOptions {
-      abortOnError false
-  }
-//  packagingOptions {
-//    pickFirst '**/armeabi-v7a/libc++_shared.so'
-//    pickFirst '**/x86/libc++_shared.so'
-//    pickFirst '**/arm64-v8a/libc++_shared.so'
-//    pickFirst '**/x86_64/libc++_shared.so'
-//    pickFirst '**/x86/libjsc.so'
-//    pickFirst '**/armeabi-v7a/libjsc.so'
-//  }
+    compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
+    buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
+    defaultConfig {
+        minSdkVersion safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
+        targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
+        versionCode 1
+        versionName "1.0"
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 repositories {
@@ -80,15 +71,9 @@ repositories {
 }
 
 dependencies {
-  //noinspection GradleDynamicVersion
-  implementation 'com.facebook.react:react-native:+'  // From node_modules
-  implementation 'com.squareup.picasso:picasso:2.71828'
-  implementation project(':react-native-agora')
-  implementation project(':react-native-permissions')
-  implementation project(':react-native-device-info')
-  implementation project(':react-native-localize')
-    implementation project(path: ':react-native-navigation')
-  implementation project(path: ':react-native-navigation')
+    //noinspection GradleDynamicVersion
+    implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
 
 def configureReactNativePom(def pom) {
@@ -163,12 +148,3 @@ afterEvaluate { project ->
         }
     }
 }
-
-// Run this once to be able to run the application with BUCK
-// puts all compile dependencies into folder libs for BUCK to use
-//task copyDownloadableDepsToLibs(type: Copy) {
-//  from configurations.compile
-//  into 'libs'
-//}
-//
-//apply from: file("../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

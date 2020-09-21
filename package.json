@@ -1,0 +1,64 @@
+{
+  "_args": [
+    [
+      "react-native-incoming-call@2.0.2",
+      "/Users/amin/Projects/MinderNative"
+    ]
+  ],
+  "_from": "react-native-incoming-call@2.0.2",
+  "_id": "react-native-incoming-call@2.0.2",
+  "_inBundle": false,
+  "_integrity": "sha512-pccLj9lBJ7ZUJRIwoIZCUp1bMO0AFOGWjh8dR6zR5tNP6ESFVJOh46eQKZidww4Q2Sa4wxF/KTCHaRTygQTneQ==",
+  "_location": "/react-native-incoming-call",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "react-native-incoming-call@2.0.2",
+    "name": "react-native-incoming-call",
+    "escapedName": "react-native-incoming-call",
+    "rawSpec": "2.0.2",
+    "saveSpec": null,
+    "fetchSpec": "2.0.2"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-incoming-call/-/react-native-incoming-call-2.0.2.tgz",
+  "_spec": "2.0.2",
+  "_where": "/Users/amin/Projects/MinderNative",
+  "author": {
+    "name": "Amin Osman",
+    "email": "osman.182@osu.edu"
+  },
+  "bugs": {
+    "url": "https://github.com/bkdev98/react-native-incoming-call/issues"
+  },
+  "description": "React Native module to display incoming call activity. Only for Android since iOS we have VoIP.",
+  "devDependencies": {
+    "react": "16.11.0",
+    "react-native": "0.62.2"
+  },
+  "homepage": "https://github.com/bkdev98/react-native-incoming-call#readme",
+  "keywords": [
+    "react-native"
+  ],
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "main": "index.js",
+  "name": "react-native-incoming-call",
+  "peerDependencies": {
+    "react": "16.11.0",
+    "react-native": "0.62.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkdev98/react-native-incoming-call.git",
+    "baseUrl": "https://github.com/bkdev98/react-native-incoming-call"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "title": "React Native Incoming Call",
+  "version": "2.0.2"
+}

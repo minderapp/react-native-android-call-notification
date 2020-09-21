@@ -1,0 +1,43 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+	package
+		ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:2:11-37
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+		ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+		ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:1-6:12
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:1:11-69
+application
+ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:3:3-5:17
+receiver#com.incomingcall.IncomingCallBroadcastReceiver
+ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:4:5-79
+	android:name
+		ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml:4:15-76
+uses-sdk
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+		ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+		ADDED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/amin/Projects/MinderNative/node_modules/react-native-incoming-call/android/src/main/AndroidManifest.xml

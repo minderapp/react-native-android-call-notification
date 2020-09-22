@@ -112,12 +112,12 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
                 v.cancel();
                 player.stop();
 
-              KeyguardManager km = (KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE);
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                km.requestDismissKeyguard(fa, null); // you may add callback listener here
-              } else {
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-              }
+//              KeyguardManager km = (KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE);
+//              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                km.requestDismissKeyguard(fa, null); // you may add callback listener here
+//              } else {
+//                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+//              }
 
               acceptDialing(notification);
 

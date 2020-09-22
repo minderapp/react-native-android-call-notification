@@ -2,6 +2,7 @@ package com.incomingcall;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -36,6 +37,14 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
           .getLaunchIntentForPackage(context.getPackageName());
         startIntent.putExtras(intent);
         startIntent.setAction(intent.getAction());
+        try {
+          KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+          Boolean isPhoneLocked = myKM.inKeyguardRestrictedInputMode();
+          if (isPhoneLocked) {
+            startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+          }
+          startIntent.putExtra("isPhoneLocked", isPhoneLocked);
+        } catch (Exception ex) {}
         context.startActivity(startIntent);
         incomingCall.clearNotification(id);
         break;

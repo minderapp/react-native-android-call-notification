@@ -2,6 +2,7 @@ package com.incomingcall;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -142,6 +143,11 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
       promise.resolve(null);
   }
 
+  @ReactMethod
+  public void isDeviceLocked(Promise promise) {
+    KeyguardManager myKM = (KeyguardManager) reactContext.getSystemService(Context.KEYGUARD_SERVICE);
+    promise.resolve(myKM.inKeyguardRestrictedInputMode());
+  }
 
   @ReactMethod
   public void getInitialNotification(Promise promise) {
@@ -151,7 +157,9 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
     if (validActions.contains(intent.getAction())) {
       try {
         IncomingCallNotification n = new IncomingCallNotification(intent);
-        promise.resolve(n.toWritableMap(intent.getAction()));
+        WritableMap result = n.toWritableMap(intent.getAction());
+        result.putBoolean("isPhoneLocked", intent.hasExtra("isPhoneLocked") && intent.getBooleanExtra("isPhoneLocked", false));
+        promise.resolve(result);
       } catch (Exception ex) {
         promise.reject(ex);
       }

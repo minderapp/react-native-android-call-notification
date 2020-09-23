@@ -54,9 +54,6 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
   private static MediaPlayer player = MediaPlayer.create(IncomingCallModule.reactContext, Settings.System.DEFAULT_RINGTONE_URI);
   private static Activity fa;
 
-  private ReactRootView mReactRootView;
-  private ReactInstanceManager mReactInstanceManager;
-
     @Override
     public void onStart() {
         super.onStart();
@@ -111,16 +108,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
             try {
                 v.cancel();
                 player.stop();
-
-//              KeyguardManager km = (KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE);
-//              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                km.requestDismissKeyguard(fa, null); // you may add callback listener here
-//              } else {
-//                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-//              }
-
-              acceptDialing(notification);
-
+                acceptDialing(notification);
             } catch (Exception e) {
                 WritableMap params = Arguments.createMap();
                 params.putString("message", e.getMessage());
@@ -139,29 +127,6 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
             dismissDialing();
             }
         });
-//      ArrayList<ReactPackage> filteredReactPackageList = new ArrayList<ReactPackage>();
-//      for(ReactPackage reactPackage: IncomingCallModule.mReactNativeHost) {
-//        if (!reactPackage.getClass().getName().equals("com.incomingcall.IncomingCallPackage") && !reactPackage.getClass().getName().equals("com.facebook.react.shell.MainReactPackage")) {
-//          filteredReactPackageList.add(reactPackage);
-//        }
-//      }
-//        mReactRootView = new ReactRootView(this);
-//        mReactInstanceManager = ReactInstanceManager.builder()
-//          .setApplication(getApplication())
-//          .setBundleAssetName("index.android.bundle")
-//          .setJSMainModulePath("calling.android")
-//          .setCurrentActivity(this)
-//          .addPackage(new MainReactPackage())
-//          .addPackages(IncomingCallModule.mReactNativeHost)
-////          .addPackage(new MainReactPackage())
-////          .addPackage(new RCTAgoraRtcPackage())
-////          .addPackage(new RNPermissionsPackage())
-////          .addPackage(new RNDeviceInfo())
-////          .addPackage(new RNLocalizePackage())
-//          .setUseDeveloperSupport(BuildConfig.DEBUG)
-//          .setInitialLifecycleState(LifecycleState.BEFORE_CREATE)
-//          .build();
-//      mReactRootView.startReactApplication(mReactInstanceManager, "CallApp", null);
     }
 
     @Override
@@ -179,21 +144,13 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
       Intent intent = new Intent(getApplicationContext(), IncomingCallBroadcastReceiver.class);
       notification.populateIntentExtras(intent, "answer");
       sendBroadcast(intent);
-//      finish();
-      setContentView(mReactRootView);
     }
 
     private void dismissDialing() {
-        WritableMap params = Arguments.createMap();
-        params.putBoolean("accept", false);
-        if (notification != null) {
-          params.putString("uuid", notification.uuid);
-        }
-        if (!IncomingCallModule.reactContext.hasCurrentActivity()) {
-            params.putBoolean("isHeadless", true);
-        }
-        sendEvent("endCall", params);
-        finish();
+      Intent intent = new Intent(getApplicationContext(), IncomingCallBroadcastReceiver.class);
+      notification.populateIntentExtras(intent, "dismiss");
+      sendBroadcast(intent);
+      fa.finish();
     }
 
     @Override
@@ -210,13 +167,11 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
     @Override
     public void onDisconnected() {
         Log.d(TAG, "onDisconnected: ");
-
     }
 
     @Override
     public void onConnectFailure() {
         Log.d(TAG, "onConnectFailure: ");
-
     }
 
     @Override

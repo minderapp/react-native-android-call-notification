@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -29,6 +30,8 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
 
     switch (intent.getAction()){
       case "dismiss":
+        IncomingCallNotification notification = new IncomingCallNotification(intent);
+        IncomingCallModule.sendEvent( "RNIncomingCallPerformEndCallAction", notification.toWritableMap("dismiss"));
         incomingCall.clearNotification(id);
         break;
       case "answer":

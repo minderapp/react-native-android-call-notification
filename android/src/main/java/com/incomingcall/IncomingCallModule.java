@@ -22,6 +22,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -167,4 +168,11 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
     promise.resolve(null);
   }
 
+  public static void sendEvent(String event, WritableMap params) {
+    reactContext
+      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+      .emit(event, params);
+  }
+
 }
+

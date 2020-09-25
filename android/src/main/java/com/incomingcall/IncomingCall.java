@@ -67,6 +67,9 @@ public class IncomingCall {
 
     PendingIntent contentIntent = PendingIntent.getActivity(context, 123, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+//    NotificationCompat.Action declineAction = new NotificationCompat.Action(R.drawable.ic_red, config.answerButtonLabel, getPendingBroadcastIntent("answer", config));
+//    NotificationCompat.Action acceptAction = new NotificationCompat.Action(R.drawable.ic_green, config.declineButtonLabel, getPendingBroadcastIntent("dismiss", config));
+
     Notification notification = new NotificationCompat.Builder(context, callChannel)
       .setAutoCancel(true)
       .setDefaults(0)

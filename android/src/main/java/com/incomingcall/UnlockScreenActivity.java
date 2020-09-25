@@ -44,6 +44,8 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
   private static final String TAG = "MessagingService";
   private TextView tvName;
   private TextView tvInfo;
+  private TextView tvAnswerButton;
+  private TextView tvDeclineButton;
   private ImageView ivAvatar;
 
   IncomingCallNotification notification = null;
@@ -68,37 +70,39 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+      super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_call_incoming);
+      setContentView(R.layout.activity_call_incoming);
 
-        tvName = findViewById(R.id.tvName);
-        tvInfo = findViewById(R.id.tvInfo);
-        ivAvatar = findViewById(R.id.ivAvatar);
-        fa = this;
+      tvName = findViewById(R.id.tvName);
+      tvInfo = findViewById(R.id.tvInfo);
+      tvAnswerButton = findViewById(R.id.tvAccept);
+      tvDeclineButton = findViewById(R.id.tvAccept);
+      ivAvatar = findViewById(R.id.ivAvatar);
+      fa = this;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-          setShowWhenLocked(true);
-          setTurnScreenOn(true);
-        }
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        setShowWhenLocked(true);
+        setTurnScreenOn(true);
+      }
 
-        notification = new IncomingCallNotification(getIntent());
+      notification = new IncomingCallNotification(getIntent());
 
-        if (notification.callerName != null) {
-          tvName.setText(notification.callerName);
-        }
+      if (notification.callerName != null) {
+        tvName.setText(notification.callerName);
+      }
 
+      if (notification.callerAvatarUrl != null) {
         if (notification.callerAvatarUrl != null) {
-          if (notification.callerAvatarUrl != null) {
-            Picasso.get().load(notification.callerAvatarUrl).transform(new CircleTransform()).into(ivAvatar);
-          }
+          Picasso.get().load(notification.callerAvatarUrl).transform(new CircleTransform()).into(ivAvatar);
         }
+      }
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+      getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+              | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-        v.vibrate(pattern, 0);
-        player.start();
+      v.vibrate(pattern, 0);
+      player.start();
 
       AnimateImage acceptCallBtn = findViewById(R.id.ivAcceptCall);
         acceptCallBtn.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +141,9 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
     public static void dismissIncoming() {
         v.cancel();
         player.stop();
-        fa.finish();
+        if (fa != null) {
+          fa.finish();
+        }
     }
 
     private void acceptDialing(IncomingCallNotification notification) {

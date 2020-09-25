@@ -26,6 +26,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class IncomingCallModule extends ReactContextBaseJavaModule implements ActivityEventListener {
@@ -35,6 +36,7 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
 
   private static final String TAG = "RNIC:IncomingCallModule";
   private WritableMap headlessExtras;
+  private HashMap<String, IncomingCallNotification> incomingNotifications = new HashMap<String, IncomingCallNotification>();
 
   @Override
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
@@ -71,8 +73,8 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
     if (UnlockScreenActivity.active) {
       return;
     }
-
     IncomingCallNotification c = new IncomingCallNotification(jsonObject);
+    incomingNotifications.put(c.uuid, c);
 
     if (reactContext != null) {
      incomingCall.displayNotification(c);
@@ -84,8 +86,13 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
   }
 
   @ReactMethod
-  public void dismiss() {
+  public void dismiss(String uuid) {
     UnlockScreenActivity.dismissIncoming();
+    IncomingCallNotification incomingCallNotification = incomingNotifications.get(uuid);
+    if (incomingCallNotification != null) {
+      incomingCall.clearNotification(incomingCallNotification.integerId);
+      incomingNotifications.remove(uuid);
+    }
     return;
   }
 

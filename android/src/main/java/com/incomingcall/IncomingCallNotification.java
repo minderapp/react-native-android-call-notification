@@ -56,10 +56,6 @@ public class IncomingCallNotification {
       callerName = json.getString("callerName");
     }
 
-    if(checkType(json , "callerAvatarUrl", "String")){
-      callerName = json.getString("callerAvatarUrl");
-    }
-
     if(checkType(json , "answerButtonLabel", "String")){
       answerButtonLabel = json.getString("answerButtonLabel");
     }
@@ -106,10 +102,6 @@ public class IncomingCallNotification {
 
     if(checkType(intent , "callerName", "String")){
       callerName = intent.getStringExtra("callerName");
-    }
-
-    if(checkType(intent , "callerAvatarUrl", "String")){
-      callerName = intent.getStringExtra("callerAvatarUrl");
     }
 
     if(checkType(intent , "answerButtonLabel", "String")){

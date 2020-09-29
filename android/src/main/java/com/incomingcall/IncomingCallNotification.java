@@ -23,6 +23,7 @@ public class IncomingCallNotification {
   String declineButtonLabel = "Decline";
   String callerName = "";
   String callerAvatarUrl = null;
+  Boolean isVideo = false;
 
   HashMap<String, Object> data = null;
 
@@ -68,6 +69,10 @@ public class IncomingCallNotification {
       callerAvatarUrl = json.getString("callerAvatarUrl");
     }
 
+    if(checkType(json , "isVideo", "Boolean")){
+      isVideo = json.getBoolean("isVideo");
+    }
+
     if (checkType(json , "data", "Map")) {
       data = json.getMap("data").toHashMap();
     }
@@ -76,44 +81,48 @@ public class IncomingCallNotification {
 
   public IncomingCallNotification(Intent intent) {
 
-    if(checkType(intent , "channelName", "String")){
+    if(checkType(intent, "channelName", "String")){
       channel = intent.getStringExtra("channel_name");
     }
 
-    if(checkType(intent , "integerId", "Number")){
+    if(checkType(intent, "integerId", "Number")){
       integerId = intent.getIntExtra("integerId", integerId);
     }
 
-    if(checkType(intent , "uuid", "String")){
+    if(checkType(intent, "uuid", "String")){
       uuid = intent.getStringExtra("uuid");
     }
 
-    if(checkType(intent , "duration", "Number")){
+    if(checkType(intent, "duration", "Number")){
       duration = intent.getIntExtra("duration", duration);
     }
 
-    if(checkType(intent , "notificationTitle", "String")){
+    if(checkType(intent, "notificationTitle", "String")){
       notificationTitle = intent.getStringExtra("notificationTitle");
     }
 
-    if(checkType(intent , "notificationBody", "String")){
+    if(checkType(intent, "notificationBody", "String")){
       notificationBody = intent.getStringExtra("notificationBody");
     }
 
-    if(checkType(intent , "callerName", "String")){
+    if(checkType(intent, "callerName", "String")){
       callerName = intent.getStringExtra("callerName");
     }
 
-    if(checkType(intent , "answerButtonLabel", "String")){
+    if(checkType(intent, "answerButtonLabel", "String")){
       answerButtonLabel = intent.getStringExtra("answerButtonLabel");
     }
 
-    if(checkType(intent , "declineButtonLabel", "String")){
+    if(checkType(intent, "declineButtonLabel", "String")){
       declineButtonLabel = intent.getStringExtra("declineButtonLabel");
     }
 
-    if(checkType(intent , "callerAvatarUrl", "String")){
+    if(checkType(intent, "callerAvatarUrl", "String")){
       callerAvatarUrl = intent.getStringExtra("callerAvatarUrl");
+    }
+
+    if(checkType(intent, "isVideo", "Boolean")){
+      isVideo = intent.getBooleanExtra("isVideo", false);
     }
 
     if (checkType(intent , "data", "Map")) {
@@ -131,6 +140,7 @@ public class IncomingCallNotification {
     intent.putExtra("id", integerId);
     intent.putExtra("action", type);
 
+    intent.putExtra("isVideo", isVideo);
     intent.putExtra("uuid", uuid);
     intent.putExtra("channel", channel);
     intent.putExtra("duration", duration);

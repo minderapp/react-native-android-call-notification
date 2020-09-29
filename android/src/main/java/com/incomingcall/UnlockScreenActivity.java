@@ -70,41 +70,44 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-      setContentView(R.layout.activity_call_incoming);
+        setContentView(R.layout.activity_call_incoming);
 
-      tvName = findViewById(R.id.tvName);
-      tvInfo = findViewById(R.id.tvInfo);
-      tvAnswerButton = findViewById(R.id.tvAccept);
-      tvDeclineButton = findViewById(R.id.tvAccept);
-      ivAvatar = findViewById(R.id.ivAvatar);
-      fa = this;
+        tvName = findViewById(R.id.tvName);
+        tvInfo = findViewById(R.id.tvInfo);
+        tvAnswerButton = findViewById(R.id.tvAccept);
+        tvDeclineButton = findViewById(R.id.tvAccept);
+        ivAvatar = findViewById(R.id.ivAvatar);
+        fa = this;
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
         setShowWhenLocked(true);
         setTurnScreenOn(true);
-      }
+        }
 
-      notification = new IncomingCallNotification(getIntent());
+        notification = new IncomingCallNotification(getIntent());
 
-      if (notification.callerName != null) {
+        if (notification.callerName != null) {
         tvName.setText(notification.callerName);
-      }
+        }
 
-      if (notification.callerAvatarUrl != null) {
+        if (notification.callerAvatarUrl != null) {
         if (notification.callerAvatarUrl != null) {
           Picasso.get().load(notification.callerAvatarUrl).transform(new CircleTransform()).into(ivAvatar);
         }
-      }
+        }
 
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
               | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-      v.vibrate(pattern, 0);
-      player.start();
+        v.vibrate(pattern, 0);
+        player.start();
 
-      AnimateImage acceptCallBtn = findViewById(R.id.ivAcceptCall);
+        AnimateImage acceptCallBtn = findViewById(R.id.ivAcceptCall);
+        if (notification.isVideo) {
+            acceptCallBtn.setImageDrawable(R.drawable.ic_accept_video_call);
+        }
         acceptCallBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override

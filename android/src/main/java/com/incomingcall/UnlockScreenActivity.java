@@ -52,7 +52,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
 
   static boolean active = false;
   private static Vibrator v = (Vibrator) IncomingCallModule.reactContext.getSystemService(Context.VIBRATOR_SERVICE);
-  private long[] pattern = {0, 1000, 800};
+  private long[] pattern = {0, 250, 250, 250};
   private static MediaPlayer player = MediaPlayer.create(IncomingCallModule.reactContext, Settings.System.DEFAULT_RINGTONE_URI);
   private static Activity fa;
 
@@ -93,9 +93,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
         }
 
         if (notification.callerAvatarUrl != null) {
-        if (notification.callerAvatarUrl != null) {
           Picasso.get().load(notification.callerAvatarUrl).transform(new CircleTransform()).into(ivAvatar);
-        }
         }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -106,7 +104,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
 
         AnimateImage acceptCallBtn = findViewById(R.id.ivAcceptCall);
         if (notification.isVideo) {
-            acceptCallBtn.setImageDrawable(R.drawable.ic_accept_video_call);
+            acceptCallBtn.setImageResource(R.drawable.ic_accept_video_call);
         }
         acceptCallBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)

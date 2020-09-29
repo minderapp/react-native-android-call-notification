@@ -88,8 +88,8 @@
         >
             <com.incomingcall.AnimateImage
                 android:id="@+id/ivDeclineCall"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_decline_call"
             />
@@ -116,8 +116,8 @@
         >
             <com.incomingcall.AnimateImage
                 android:id="@+id/ivAcceptCall"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_accept_audio_call"
             />

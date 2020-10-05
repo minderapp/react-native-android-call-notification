@@ -115,8 +115,6 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
           @Override
           public void onClick(View view) {
         try {
-          v.cancel();
-          player.stop();
           acceptDialing(notification);
         } catch (Exception e) {
           WritableMap params = Arguments.createMap();
@@ -131,11 +129,17 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
       rejectCallBtn.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-          v.cancel();
-          player.stop();
           dismissDialing();
           }
       });
+
+      new android.os.Handler().postDelayed(
+        new Runnable() {
+          public void run() {
+            dismissDialing();
+          }
+        }, notification.duration);
+
     }
 
     @Override
@@ -144,24 +148,46 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
     }
 
     public static void dismissIncoming() {
+      if (v != null) {
         v.cancel();
+      }
+      if (player != null) {
         player.stop();
-        if (fa != null) {
-          fa.finish();
-        }
+      }
+      if (fa != null) {
+        fa.finish();
+      }
     }
 
     private void acceptDialing(IncomingCallNotification notification) {
+      try {
+        v.cancel();
+        player.stop();
+      } catch (Exception e) {
+        WritableMap params = Arguments.createMap();
+        params.putString("message", e.getMessage());
+        sendEvent("error", params);
+      }
       Intent intent = new Intent(getApplicationContext(), IncomingCallBroadcastReceiver.class);
       notification.populateIntentExtras(intent, "answer");
       sendBroadcast(intent);
     }
 
     private void dismissDialing() {
+      try {
+        v.cancel();
+        player.stop();
+      } catch (Exception e) {
+        WritableMap params = Arguments.createMap();
+        params.putString("message", e.getMessage());
+        sendEvent("error", params);
+      }
       Intent intent = new Intent(getApplicationContext(), IncomingCallBroadcastReceiver.class);
       notification.populateIntentExtras(intent, "dismiss");
       sendBroadcast(intent);
-      fa.finish();
+      if (fa != null) {
+        fa.finish();
+      }
     }
 
     @Override

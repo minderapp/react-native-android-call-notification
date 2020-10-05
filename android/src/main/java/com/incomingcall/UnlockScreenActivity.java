@@ -58,80 +58,84 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
 
     @Override
     public void onStart() {
-        super.onStart();
-        active = true;
+      super.onStart();
+      active = true;
     }
 
     @Override
     public void onStop() {
-        super.onStop();
-        active = false;
+      super.onStop();
+      active = false;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+      super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_call_incoming);
+      setContentView(R.layout.activity_call_incoming);
 
-        tvName = findViewById(R.id.tvName);
-        tvInfo = findViewById(R.id.tvInfo);
-        tvAnswerButton = findViewById(R.id.tvAccept);
-        tvDeclineButton = findViewById(R.id.tvAccept);
-        ivAvatar = findViewById(R.id.ivAvatar);
-        fa = this;
+      tvName = findViewById(R.id.tvName);
+      tvInfo = findViewById(R.id.tvInfo);
+      tvAnswerButton = findViewById(R.id.tvAccept);
+      tvDeclineButton = findViewById(R.id.tvAccept);
+      ivAvatar = findViewById(R.id.ivAvatar);
+      fa = this;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
         setShowWhenLocked(true);
         setTurnScreenOn(true);
-        }
+      }
 
-        notification = new IncomingCallNotification(getIntent());
+      notification = new IncomingCallNotification(getIntent());
 
-        if (notification.callerName != null) {
+      if (notification.callerName != null) {
         tvName.setText(notification.callerName);
+      }
+
+      if (notification.notificationBody != null) {
+        tvInfo.setText(notification.notificationBody);
+      }
+
+      if (notification.callerAvatarUrl != null) {
+        Picasso.get().load(notification.callerAvatarUrl).transform(new CircleTransform()).into(ivAvatar);
+      }
+
+      getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+
+      v.vibrate(pattern, 0);
+      player.start();
+
+      AnimateImage acceptCallBtn = findViewById(R.id.ivAcceptCall);
+      if (notification.isVideo) {
+          acceptCallBtn.setImageResource(R.drawable.ic_accept_video_call);
+      }
+      acceptCallBtn.setOnClickListener(new View.OnClickListener() {
+          @RequiresApi(api = Build.VERSION_CODES.O)
+          @Override
+          public void onClick(View view) {
+        try {
+          v.cancel();
+          player.stop();
+          acceptDialing(notification);
+        } catch (Exception e) {
+          WritableMap params = Arguments.createMap();
+          params.putString("message", e.getMessage());
+          sendEvent("error", params);
+          dismissDialing();
         }
+          }
+      });
 
-        if (notification.callerAvatarUrl != null) {
-          Picasso.get().load(notification.callerAvatarUrl).transform(new CircleTransform()).into(ivAvatar);
-        }
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-              | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-
-        v.vibrate(pattern, 0);
-        player.start();
-
-        AnimateImage acceptCallBtn = findViewById(R.id.ivAcceptCall);
-        if (notification.isVideo) {
-            acceptCallBtn.setImageResource(R.drawable.ic_accept_video_call);
-        }
-        acceptCallBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View view) {
-            try {
-                v.cancel();
-                player.stop();
-                acceptDialing(notification);
-            } catch (Exception e) {
-                WritableMap params = Arguments.createMap();
-                params.putString("message", e.getMessage());
-                sendEvent("error", params);
-                dismissDialing();
-            }
-            }
-        });
-
-        AnimateImage rejectCallBtn = findViewById(R.id.ivDeclineCall);
-        rejectCallBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            v.cancel();
-            player.stop();
-            dismissDialing();
-            }
-        });
+      AnimateImage rejectCallBtn = findViewById(R.id.ivDeclineCall);
+      rejectCallBtn.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+          v.cancel();
+          player.stop();
+          dismissDialing();
+          }
+      });
     }
 
     @Override

@@ -77,6 +77,7 @@ public class IncomingCall {
       .setOngoing(true)
       .setTimeoutAfter(config.duration)
       .setOnlyAlertOnce(true)
+      .setAutoCancel(false)
       .setSmallIcon(R.drawable.ic_call_black_24dp)
       .setFullScreenIntent(contentIntent, true)
       .setContentIntent(getActivityPendingIntent("tap", config))

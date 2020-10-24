@@ -51,6 +51,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
   IncomingCallNotification notification = null;
 
   static boolean active = false;
+  static boolean answered = false;
   private static Vibrator v = (Vibrator) IncomingCallModule.reactContext.getSystemService(Context.VIBRATOR_SERVICE);
   private long[] pattern = {0, 250, 250, 250};
   private static MediaPlayer player = MediaPlayer.create(IncomingCallModule.reactContext, Settings.System.DEFAULT_RINGTONE_URI);
@@ -71,6 +72,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      answered = false;
 
       setContentView(R.layout.activity_call_incoming);
 
@@ -116,6 +118,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
           public void onClick(View view) {
         try {
           acceptDialing(notification);
+          answered = true;
         } catch (Exception e) {
           WritableMap params = Arguments.createMap();
           params.putString("message", e.getMessage());
@@ -136,7 +139,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
       new android.os.Handler().postDelayed(
         new Runnable() {
           public void run() {
-            dismissDialing();
+            if (!answered) { dismissDialing(); }
           }
         }, notification.duration);
 

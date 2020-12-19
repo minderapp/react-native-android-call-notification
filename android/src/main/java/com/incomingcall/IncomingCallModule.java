@@ -111,33 +111,9 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
 
       if (isOpened) {
           focusIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-          activity.startActivity(focusIntent);
-      }
-  }
-
-  @SuppressLint("WrongConstant")
-  @ReactMethod
-  public void openAppFromHeadlessMode(String uuid) {
-      Context context = getAppContext();
-      String packageName = context.getApplicationContext().getPackageName();
-      Intent focusIntent = context.getPackageManager().getLaunchIntentForPackage(packageName).cloneFilter();
-      Activity activity = getCurrentActivity();
-      boolean isOpened = activity != null;
-
-      if (!isOpened) {
-          focusIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                  WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                  WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                  WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                  WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-
-          final WritableMap response = new WritableNativeMap();
-          response.putBoolean("isHeadless", true);
-          response.putString("uuid", uuid);
-
-          this.headlessExtras = response;
-
-          getReactApplicationContext().startActivity(focusIntent);
+          if (activity.getCallingActivity() != null) {
+              activity.startActivity(focusIntent);
+          }
       }
   }
 

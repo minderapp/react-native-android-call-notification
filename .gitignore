@@ -42,3 +42,11 @@ buck-out/
 *.keystore
 
 .history/
+
+android/gradle/wrapper/gradle-wrapper.jar
+
+android/gradle/wrapper/gradle-wrapper.properties
+
+android/gradlew
+
+android/gradlew.bat

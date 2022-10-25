@@ -111,13 +111,13 @@ public class IncomingCall {
 
   public void createCallNotificationChannel(NotificationManager manager){
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      Uri sounduri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+      Uri sounduri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
       NotificationChannel channel = new NotificationChannel(callChannel, callChannel, NotificationManager.IMPORTANCE_HIGH);
       channel.setDescription("Call Notifications");
       channel.setSound(sounduri ,
         new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
           .setUsage(AudioAttributes.USAGE_UNKNOWN).build());
-      channel.setVibrationPattern(new long[]{0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000});
+      channel.setVibrationPattern(new long[]{0, 1000});
       channel.enableVibration(true);
       manager.createNotificationChannel(channel);
     }

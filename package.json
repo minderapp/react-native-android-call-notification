@@ -35,8 +35,8 @@
   },
   "description": "React Native module to display incoming call activity. Only for Android since iOS we have VoIP.",
   "devDependencies": {
-    "react": "16.11.0",
-    "react-native": "0.62.2"
+    "react": "17.0.2",
+    "react-native": "0.67.4"
   },
   "homepage": "https://github.com/aminosman/react-native-android-call-notification#readme",
   "keywords": [

@@ -47,8 +47,8 @@
   "main": "index.js",
   "name": "react-native-android-call-notification",
   "peerDependencies": {
-    "react": "16.11.0",
-    "react-native": "0.62.2"
+    "react": "17.0.2",
+    "react-native": "0.67.4"
   },
   "repository": {
     "type": "git",

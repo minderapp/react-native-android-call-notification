@@ -100,7 +100,7 @@ public class IncomingCall {
       .setPriority(Notification.PRIORITY_MAX)
       .setContentTitle(config.notificationTitle)
       .setContentText(config.notificationBody)
-      .addAction(0, config.answerButtonLabel, getPendingBroadcastIntent("answer", config))
+      .addAction(0, config.answerButtonLabel, getActivityPendingIntent("answer", config))
       .addAction(0, config.declineButtonLabel,  getPendingBroadcastIntent("dismiss", config))
       .build();
 

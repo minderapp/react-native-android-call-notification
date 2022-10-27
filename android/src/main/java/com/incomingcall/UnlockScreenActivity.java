@@ -52,9 +52,6 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
 
   static boolean active = false;
   static boolean answered = false;
-  private static Vibrator v = (Vibrator) IncomingCallModule.reactContext.getSystemService(Context.VIBRATOR_SERVICE);
-  private long[] pattern = {0, 250, 250, 250};
-  private static MediaPlayer player = MediaPlayer.create(IncomingCallModule.reactContext, Settings.System.DEFAULT_RINGTONE_URI);
   private static Activity fa;
 
     @Override
@@ -105,9 +102,6 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
             | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-      v.vibrate(pattern, 0);
-      player.start();
-
       AnimateImage acceptCallBtn = findViewById(R.id.ivAcceptCall);
       if (notification.isVideo) {
           acceptCallBtn.setImageResource(R.drawable.ic_accept_video_call);
@@ -116,15 +110,15 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
           @RequiresApi(api = Build.VERSION_CODES.O)
           @Override
           public void onClick(View view) {
-        try {
-          acceptDialing(notification);
-          answered = true;
-        } catch (Exception e) {
-          WritableMap params = Arguments.createMap();
-          params.putString("message", e.getMessage());
-          sendEvent("error", params);
-          dismissDialing();
-        }
+            try {
+              acceptDialing(notification);
+              answered = true;
+            } catch (Exception e) {
+              WritableMap params = Arguments.createMap();
+              params.putString("message", e.getMessage());
+              sendEvent("error", params);
+              dismissDialing();
+            }
           }
       });
 
@@ -141,7 +135,9 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
           public void run() {
             if (!answered) { dismissDialing(); }
           }
-        }, notification.duration);
+        },
+        notification.duration
+      );
 
     }
 
@@ -151,26 +147,12 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
     }
 
     public static void dismissIncoming() {
-      if (v != null) {
-        v.cancel();
-      }
-      if (player != null) {
-        player.stop();
-      }
       if (fa != null) {
         fa.finish();
       }
     }
 
     private void acceptDialing(IncomingCallNotification notification) {
-      try {
-        v.cancel();
-        player.stop();
-      } catch (Exception e) {
-        WritableMap params = Arguments.createMap();
-        params.putString("message", e.getMessage());
-        sendEvent("error", params);
-      }
       Intent intent = getApplicationContext().getPackageManager()
         .getLaunchIntentForPackage(getApplicationContext().getPackageName());
       notification.populateIntentExtras(intent, "answer");
@@ -178,14 +160,6 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
     }
 
     private void dismissDialing() {
-      try {
-        v.cancel();
-        player.stop();
-      } catch (Exception e) {
-        WritableMap params = Arguments.createMap();
-        params.putString("message", e.getMessage());
-        sendEvent("error", params);
-      }
       Intent intent = new Intent(getApplicationContext(), IncomingCallBroadcastReceiver.class);
       notification.populateIntentExtras(intent, "dismiss");
       sendBroadcast(intent);
@@ -199,9 +173,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
         Log.d(TAG, "onConnected: ");
         runOnUiThread(new Runnable() {
             @Override
-            public void run() {
-
-            }
+            public void run() {}
         });
     }
 

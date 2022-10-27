@@ -1,5 +1,7 @@
 package com.incomingcall;
 
+import static android.app.Notification.VISIBILITY_PUBLIC;
+
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.app.Notification;
@@ -87,7 +89,6 @@ public class IncomingCall {
       .setOngoing(true)
       .setTimeoutAfter(config.duration)
       .setOnlyAlertOnce(true)
-      .setAutoCancel(false)
       .setSmallIcon(R.drawable.ic_call_black_24dp)
       .setFullScreenIntent(contentIntent, true)
       .setContentIntent(getActivityPendingIntent("tap", config))
@@ -109,9 +110,8 @@ public class IncomingCall {
       NotificationChannel channel = new NotificationChannel(callChannel, callChannel, NotificationManager.IMPORTANCE_HIGH);
       channel.setDescription("Call Notifications");
       channel.setSound(sounduri ,
-        new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-          .setUsage(AudioAttributes.USAGE_UNKNOWN).build());
-      channel.setVibrationPattern(new long[]{0, 1000});
+        new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE).build());
+      channel.setLockscreenVisibility(VISIBILITY_PUBLIC);
       channel.enableVibration(true);
       manager.createNotificationChannel(channel);
     }
@@ -120,11 +120,6 @@ public class IncomingCall {
   public void clearNotification(Integer notificationID) {
     NotificationManager notificationManager = notificationManager();
     notificationManager.cancel(notificationID);
-  }
-
-  public void clearAllNorifications(){
-    NotificationManager manager = notificationManager();
-    manager.cancelAll();
   }
 
   private NotificationManager notificationManager() {
@@ -148,9 +143,7 @@ public class IncomingCall {
         default:
           break;
       }
-    } catch(NullPointerException e){
-
-    }
+    } catch(NullPointerException e){}
   }
 
   private void sendEvent(ReactApplicationContext reactContext, String eventName, @Nullable WritableMap params) {

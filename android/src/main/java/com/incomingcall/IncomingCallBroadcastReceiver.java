@@ -21,6 +21,7 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     Application applicationContext = (Application) context.getApplicationContext();
+//     Activity activity = (Activity) context;
 
     IncomingCall incomingCall = new IncomingCall(context);
     Integer id = intent.getIntExtra("id", 0);

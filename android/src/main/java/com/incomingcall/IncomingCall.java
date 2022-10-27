@@ -46,45 +46,39 @@ public class IncomingCall {
   public PendingIntent getPendingBroadcastIntent(String type, IncomingCallNotification config){
     Intent intent = new Intent(context, IncomingCallBroadcastReceiver.class);
     config.populateIntentExtras(intent, type);
-      PendingIntent pendingIntent = PendingIntent.getBroadcast(
-        context,
-        config.integerId,
-        intent,
-         android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
-      );
-      return pendingIntent;
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(
+      context,
+      config.integerId,
+      intent,
+       android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
+    );
+    return pendingIntent;
   }
 
   public PendingIntent getActivityPendingIntent(String type, IncomingCallNotification config){
-    Intent intent = new Intent(context,  getMainActivityClass());
+    Intent intent = new Intent(context, getMainActivityClass());
     config.populateIntentExtras(intent, type);
-      PendingIntent pendingIntent = PendingIntent.getActivity(
-        context,
-        config.integerId,
-        intent, 
-        android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
-      );
-      return pendingIntent;
+    PendingIntent pendingIntent = PendingIntent.getActivity(
+      context,
+      config.integerId,
+      intent,
+      android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
+    );
+    return pendingIntent;
   }
 
   @SuppressLint("WrongConstant")
   public void displayNotification(IncomingCallNotification config) {
-
     Intent fullScreenIntent = new Intent(context, UnlockScreenActivity.class);
     fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
     fullScreenIntent.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED + WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD + WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
     config.populateIntentExtras(fullScreenIntent, "fillScreenIntent");
-
-    
 
     PendingIntent contentIntent = PendingIntent.getActivity(
       context,
       123,
       fullScreenIntent,
      android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE : PendingIntent.FLAG_UPDATE_CURRENT);
-
-//    NotificationCompat.Action declineAction = new NotificationCompat.Action(R.drawable.ic_red, config.answerButtonLabel, getPendingBroadcastIntent("answer", config));
-//    NotificationCompat.Action acceptAction = new NotificationCompat.Action(R.drawable.ic_green, config.declineButtonLabel, getPendingBroadcastIntent("dismiss", config));
 
     Notification notification = new NotificationCompat.Builder(context, callChannel)
       .setAutoCancel(true)

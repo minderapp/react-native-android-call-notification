@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.WindowManager;
@@ -149,6 +150,41 @@ public class IncomingCallModule extends ReactContextBaseJavaModule implements Ac
       }
     }
     promise.resolve(null);
+  }
+
+  @ReactMethod
+  public void allowAppToShowOnLockScreen() {
+    Activity activity = getCurrentActivity();
+
+    activity.runOnUiThread(() -> {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        activity.setShowWhenLocked(true);
+        activity.setTurnScreenOn(true);
+      }
+      activity.getWindow().addFlags(
+        WindowManager.LayoutParams.FLAG_FULLSCREEN
+          | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+          | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+          | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+          | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+    });
+  }
+
+  @ReactMethod
+  public void preventAppFromShowingOnLockScreen() {
+    Activity activity = getCurrentActivity();
+    activity.runOnUiThread(() -> {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        activity.setShowWhenLocked(false);
+        activity.setTurnScreenOn(false);
+      }
+      activity.getWindow().clearFlags(
+        WindowManager.LayoutParams.FLAG_FULLSCREEN
+          | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+          | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+          | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+          | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+    });
   }
 
   public static void sendEvent(String event, WritableMap params) {

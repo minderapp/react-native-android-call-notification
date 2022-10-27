@@ -21,7 +21,6 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     Application applicationContext = (Application) context.getApplicationContext();
-    // Activity activity = (Activity) context;
 
     IncomingCall incomingCall = new IncomingCall(context);
     Integer id = intent.getIntExtra("id", 0);
@@ -33,25 +32,6 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
       case "dismiss":
         IncomingCallNotification notification = new IncomingCallNotification(intent);
         IncomingCallModule.sendEvent( "RNIncomingCallPerformEndCallAction", notification.toWritableMap("dismiss"));
-        incomingCall.clearNotification(id);
-        break;
-      case "answer":
-        Intent startIntent = context
-          .getPackageManager()
-          .getLaunchIntentForPackage(context.getPackageName());
-        startIntent.putExtras(intent);
-        startIntent.setAction(intent.getAction());
-        try {
-          KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-          Boolean isPhoneLocked = myKM.inKeyguardRestrictedInputMode();
-          if (isPhoneLocked) {
-            startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-          }
-          startIntent.putExtra("isPhoneLocked", isPhoneLocked);
-        } catch (Exception ex) {}
-        // if (activity.getCallingActivity() != null) {
-          context.startActivity(startIntent);
-        // }
         incomingCall.clearNotification(id);
         break;
       case "timeout":

@@ -171,9 +171,10 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
         params.putString("message", e.getMessage());
         sendEvent("error", params);
       }
-      Intent intent = new Intent(getApplicationContext(), IncomingCallBroadcastReceiver.class);
+      Intent intent = getApplicationContext().getPackageManager()
+        .getLaunchIntentForPackage(getApplicationContext().getPackageName());
       notification.populateIntentExtras(intent, "answer");
-      sendBroadcast(intent);
+      startActivity(intent);
     }
 
     private void dismissDialing() {

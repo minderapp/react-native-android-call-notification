@@ -25,7 +25,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class IncomingCall {
-  public final String callChannel = "Call";
+  public final String callChannel = "Call Notifications";
 
   public Context context;
 
@@ -108,7 +108,7 @@ public class IncomingCall {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       Uri sounduri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
       NotificationChannel channel = new NotificationChannel(callChannel, callChannel, NotificationManager.IMPORTANCE_HIGH);
-      channel.setDescription("Call Notifications");
+      channel.setDescription("Call Notifications V2");
       channel.setSound(sounduri ,
         new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE).build());
       channel.setLockscreenVisibility(VISIBILITY_PUBLIC);

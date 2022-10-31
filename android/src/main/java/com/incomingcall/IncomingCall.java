@@ -91,7 +91,7 @@ public class IncomingCall {
       .setOnlyAlertOnce(true)
       .setSmallIcon(R.drawable.ic_call_black_24dp)
       .setFullScreenIntent(contentIntent, true)
-      .setContentIntent(getActivityPendingIntent("tap", config))
+      .setContentIntent(contentIntent)
       .setPriority(Notification.PRIORITY_MAX)
       .setContentTitle(config.notificationTitle)
       .setContentText(config.notificationBody)

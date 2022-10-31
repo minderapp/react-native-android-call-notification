@@ -96,7 +96,7 @@ public class IncomingCall {
       .setContentTitle(config.notificationTitle)
       .setContentText(config.notificationBody)
       .addAction(0, config.answerButtonLabel, getActivityPendingIntent("answer", config))
-      .addAction(0, config.declineButtonLabel,  getPendingBroadcastIntent("dismiss", config))
+      .addAction(0, config.declineButtonLabel, getPendingBroadcastIntent("decline", config))
       .build();
 
     NotificationManager notificationManager = notificationManager();
@@ -137,7 +137,7 @@ public class IncomingCall {
         case "tap":
           sendEvent(reactContext,"RNIncomingCallNotificationTap", notification.toWritableMap(action));
           break;
-        case "dismiss":
+        case "decline":
           sendEvent(reactContext,"RNIncomingCallPerformEndCallAction", notification.toWritableMap(action));
           break;
         default:

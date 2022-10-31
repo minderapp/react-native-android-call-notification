@@ -161,7 +161,7 @@ public class UnlockScreenActivity extends AppCompatActivity implements UnlockScr
 
     private void dismissDialing() {
       Intent intent = new Intent(getApplicationContext(), IncomingCallBroadcastReceiver.class);
-      notification.populateIntentExtras(intent, "dismiss");
+      notification.populateIntentExtras(intent, "decline");
       sendBroadcast(intent);
       if (fa != null) {
         fa.finish();

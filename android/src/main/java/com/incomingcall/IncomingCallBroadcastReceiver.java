@@ -21,7 +21,7 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     Application applicationContext = (Application) context.getApplicationContext();
-    // Activity activity = (Activity) context;
+//     Activity activity = (Activity) context;
 
     IncomingCall incomingCall = new IncomingCall(context);
     Integer id = intent.getIntExtra("id", 0);
@@ -31,8 +31,9 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
 
     switch (intent.getAction()){
       case "dismiss":
+      case "decline":
         IncomingCallNotification notification = new IncomingCallNotification(intent);
-        IncomingCallModule.sendEvent( "RNIncomingCallPerformEndCallAction", notification.toWritableMap("dismiss"));
+        IncomingCallModule.sendEvent( "RNIncomingCallPerformEndCallAction", notification.toWritableMap(intent.getAction()));
         incomingCall.clearNotification(id);
         break;
       case "timeout":

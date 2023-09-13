@@ -141,9 +141,10 @@ afterEvaluate { project ->
 
     task installArchives(type: Upload) {
         configuration = configurations.archives
-        repositories.maven {
+        repositories.mavenDeployer {
             // Deploy to react-native-event-bridge/maven, ready to publish to npm
-            url = uri("file://${projectDir}/../android/maven")
+            repository url: "file://${projectDir}/../android/maven"
+            configureReactNativePom pom
         }
     }
 }

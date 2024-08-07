@@ -19,6 +19,10 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
+configurations {
+  customConfig.extendsFrom implementation
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
@@ -110,7 +114,7 @@ afterEvaluate { project ->
     task androidJavadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += files(android.bootClasspath)
-        classpath += files(project.getConfigurations().getByName('runtimeClasspath').asList())
+        classpath += files(project.getConfigurations().getByName('customConfig').asList())
         include '**/*.java'
     }
 
